@@ -1,0 +1,48 @@
+version: "3.4"
+services:
+  rp:
+    image: nginx:latest
+    hostname: rp
+    container_name: rp
+    depends_on:
+      - server_a
+      - server_b
+      - server_c
+      - client_a
+    ports:
+      - "8500:8500"
+      - "8600:8600"
+    networks:
+      - net-custom
+    volumes:
+      - ./container-files/nginx/nginx.conf:/etc/nginx/nginx.conf
+  server_a:
+    image: isago.ch/gbo/ocelot-dc-lab/consul-server
+    command: consul agent -server -ui -node=server_a -retry-join server_b -retry-join server_c -datacenter=consuldemo01 -data-dir=/consul/data -bootstrap-expect=3 -client=0.0.0.0
+    hostname: server_a
+    container_name: server_a
+    networks:
+      - net-custom
+  server_b:
+    image: isago.ch/gbo/ocelot-dc-lab/consul-server
+    command: consul agent -server -ui -node=server_b -retry-join server_a -retry-join server_c -datacenter=consuldemo01 -data-dir=/consul/data -bootstrap-expect=3 -client=0.0.0.0
+    hostname: server_b
+    container_name: server_b
+    networks:
+      - net-custom
+  server_c:
+    image: isago.ch/gbo/ocelot-dc-lab/consul-server
+    command: consul agent -server -ui -node=server_c -retry-join server_a -retry-join server_b -datacenter=consuldemo01 -data-dir=/consul/data -bootstrap-expect=3 -client=0.0.0.0
+    hostname: server_c
+    container_name: server_c
+    networks:
+      - net-custom
+  client_a:
+    image: consul:1.8.6
+    command: consul agent -ui -node=client_a -retry-join server_a -retry-join server_b -datacenter=consuldemo01 -data-dir=/consul/data -client=0.0.0.0
+    hostname: client_a
+    container_name: client_a
+    networks:
+      - net-custom
+networks:
+  net-custom:

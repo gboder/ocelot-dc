@@ -1,12 +1,9 @@
 [CmdletBinding()]
 param (
     [Parameter()]
+    [ValidateSet("Client","Server","App","All")]
     [string]
-    $WorkingDirectory,
-    # Parameter help description
-    [Parameter()]
-    [string]
-    $DockerFile
+    $BuildTarget
 )
 
 $originalDirectory = Get-Location
@@ -20,8 +17,20 @@ if([string]::IsNullOrWhiteSpace($DockerFile))
     $DockerFile = "Dockerfile"
 }
 
-Set-Location $WorkingDirectory
+$Directories =@()
+if($BuildTarget -eq "All")
+{
+    $Directories = @("client","server","app")
+}else{
+    $Directories.Clear()
+    $Directories.Add($BuildTarget.ToLower())
+}
 
-docker build . --tag isago.ch/gbo/ocelot-dc-lab/consul-server
+
+foreach ($directory in $Directories) {
+    $WorkingDirectory = "..\src\containers\consul-$directory"
+    Set-Location $WorkingDirectory
+    docker build . --tag isago.ch/gbo/ocelot-dc-lab/consul-$directory
+}
 
 Set-Location $originalDirectory

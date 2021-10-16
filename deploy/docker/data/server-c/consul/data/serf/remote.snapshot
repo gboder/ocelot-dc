@@ -1,0 +1,11 @@
+alive: server-c.consuldemo01 192.168.32.5:8302
+alive: server-b.consuldemo01 192.168.32.3:8302
+clock: 1
+alive: server-a.consuldemo01 192.168.32.4:8302
+clock: 4
+alive: server-c.consuldemo01 192.168.32.4:8302
+alive: server-b.consuldemo01 192.168.32.3:8302
+clock: 5
+alive: server-a.consuldemo01 192.168.32.5:8302
+clock: 7
+clock: 8

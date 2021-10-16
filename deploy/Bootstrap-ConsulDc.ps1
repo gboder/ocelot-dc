@@ -1,1 +1,0 @@
-docker run -d -v D:/Source/ocelot-dc/deploy/docker/data/server/consul/config:/consul/config -v D:/Source/ocelot-dc/deploy/docker/data/server_a/consul/data:/consul/data -v D:/Source/ocelot-dc/deploy/docker/data/server/consul/policies:/consul/policies  consul:1.8.6

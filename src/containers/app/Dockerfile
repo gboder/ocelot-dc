@@ -11,4 +11,5 @@ RUN dotnet publish -c release -o /app
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
 WORKDIR /app
 COPY --from=build /app ./
-ENTRYPOINT ["dotnet", "client-webapi.dll"]
+
+CMD ["dotnet", "client-webapi.dll"]

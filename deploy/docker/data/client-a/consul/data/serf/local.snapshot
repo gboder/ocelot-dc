@@ -55,3 +55,37 @@ event-clock: 8
 clock: 33
 leave
 clock: 34
+alive: client-b 192.168.32.2:8301
+alive: server-c 192.168.32.4:8301
+clock: 35
+alive: server-a 192.168.32.6:8301
+alive: server-b 192.168.32.3:8301
+clock: 36
+query-clock: 1
+query-clock: 2
+clock: 37
+event-clock: 9
+event-clock: 10
+clock: 38
+leave
+clock: 39
+alive: client-b 192.168.32.2:8301
+alive: server-c 192.168.32.4:8301
+clock: 40
+alive: server-b 192.168.32.3:8301
+alive: server-a 192.168.32.6:8301
+clock: 42
+leave
+clock: 43
+alive: client-a 192.168.48.3:8301
+alive: server-c 192.168.48.6:8301
+alive: server-a 192.168.48.4:8301
+alive: server-b 192.168.48.5:8301
+alive: client-b 192.168.48.2:8301
+clock: 44
+clock: 45
+event-clock: 11
+event-clock: 12
+clock: 46
+leave
+clock: 47

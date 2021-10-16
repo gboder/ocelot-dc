@@ -7,8 +7,8 @@ COPY client-webapi/. ./client-webapi/
 WORKDIR /source/client-webapi
 RUN dotnet publish -c release -o /app
 
-# runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine as runtime
+# final stage/image
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
 WORKDIR /app
 COPY --from=build /app ./
-CMD ["dotnet" "client-webapi.dll"]
+ENTRYPOINT ["dotnet", "client-webapi.dll"]

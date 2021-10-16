@@ -20,3 +20,35 @@ event-clock: 2
 clock: 12
 event-clock: 3
 clock: 13
+alive: server-a 192.168.32.5:8301
+clock: 15
+alive: server-c 192.168.32.4:8301
+alive: client-b 192.168.32.2:8301
+alive: server-b 192.168.32.3:8301
+clock: 17
+clock: 18
+alive: client-a 192.168.32.6:8301
+clock: 19
+event-clock: 4
+not-alive: server-b
+event-clock: 5
+not-alive: server-b
+clock: 20
+alive: server-b 192.168.32.3:8301
+clock: 22
+clock: 23
+alive: server-a 192.168.32.4:8301
+alive: server-b 192.168.32.3:8301
+alive: server-c 192.168.32.5:8301
+clock: 25
+clock: 27
+alive: client-a 192.168.32.6:8301
+alive: client-b 192.168.32.2:8301
+clock: 28
+event-clock: 6
+event-clock: 7
+clock: 30
+clock: 31
+clock: 32
+event-clock: 8
+clock: 33

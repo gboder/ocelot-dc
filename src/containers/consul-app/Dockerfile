@@ -75,6 +75,10 @@ EXPOSE 8301 8301/udp 8302 8302/udp
 # use to interact with Consul.
 EXPOSE 8500 8600 8600/udp
 
+RUN mkdir /var/log/consul-agent
+RUN mkdir /var/log/client-app
+RUN mkdir /var/log/consul
+
 # Add and configure supervisor
 RUN apk add supervisor
 RUN mkdir -p /var/log/supervisor

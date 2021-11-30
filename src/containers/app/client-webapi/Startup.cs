@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ais.Common.ServiceRegistration;
 using Consul.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +34,7 @@ namespace client_webapi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "client_webapi", Version = "v1" });
             });
-            services.AddConsul();
+            services.AddConsul().AddConsulConfig(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +57,8 @@ namespace client_webapi
             {
                 endpoints.MapControllers();
             });
+
+            app.UseConsul();
         }
     }
 }

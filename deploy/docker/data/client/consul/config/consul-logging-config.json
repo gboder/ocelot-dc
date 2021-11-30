@@ -1,0 +1,5 @@
+{
+    "log_file": "/var/log/consul/",
+    "log_rotate_max_files": 5,
+    "log_level": "warn"
+}

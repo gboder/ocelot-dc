@@ -1,0 +1,139 @@
+version: "3.4"
+services:
+  rp-a:
+    image: nginx:latest
+    hostname: rp-a
+    container_name: rp-a
+    depends_on:
+      - server-a
+      - server-b
+      - server-c
+      - client-a
+      - client-b
+    ports:
+      - "8500:8500"
+      - "8600:8600"
+      - "8800:8800"
+    networks:
+      - net-custom
+    volumes:
+      - ./data/rp/nginx/nginx.conf:/etc/nginx/nginx.conf
+  # server-a-bs:
+  #   image: isago.ch/gbo/ocelot-dc-lab/consul-server
+  #   command: consul agent -dev -datacenter=consuldemo01 -data-dir=/consul/data -client=0.0.0.0 -config-dir=/consul/config
+  #   hostname: server-a
+  #   container_name: server-a
+  #   ports:
+  #     - "8500:8500"
+  #   environment:
+  #     - CONSUL_HTTP_TOKEN=
+  #   volumes:
+  #     - ./data/server/consul/config/:/consul/config
+  #     - ./data/server/consul/policies/:/consul/policies
+  #     - ./data/server-a/consul/data/:/consul/data
+  #   networks:
+  #     - net-custom
+  server-a:
+    image: isago.ch/gbo/ocelot-dc-lab/consul-server
+    command: consul agent -server -ui -node=server-a -retry-join server-b -retry-join server-c -datacenter=consuldemo01 -data-dir=/consul/data -config-dir=/consul/config -bootstrap-expect=3 -client=0.0.0.0
+    hostname: server-a
+    container_name: server-a
+    ports:
+      - "8501:8500"
+    environment:
+      - CONSUL_HTTP_TOKEN_FILE=/consul/tokens/agent-token
+    volumes:
+      - ./data/base/consul/agent-token:/consul/tokens/agent-token
+      - ./data/server/consul/config/:/consul/config
+      - ./data/server/consul/policies/:/consul/policies
+      - ./data/server-a/consul/data/:/consul/data
+    networks:
+      - net-custom
+  server-b:
+    image: isago.ch/gbo/ocelot-dc-lab/consul-server
+    command: consul agent -server -ui -node=server-b -retry-join server-a -retry-join server-c -datacenter=consuldemo01 -data-dir=/consul/data -config-dir=/consul/config -bootstrap-expect=3 -client=0.0.0.0
+    hostname: server-b
+    container_name: server-b
+    ports:
+      - "8502:8500"
+    environment:
+      - CONSUL_HTTP_TOKEN_FILE=/consul/tokens/agent-token
+    volumes:
+      - ./data/base/consul/agent-token:/consul/tokens/agent-token
+      - ./data/server/consul/config/:/consul/config
+      - ./data/server/consul/policies/:/consul/policies
+      - ./data/server-b/consul/data/:/consul/data
+    networks:
+      - net-custom
+  server-c:
+    image: isago.ch/gbo/ocelot-dc-lab/consul-server
+    command: consul agent -server -ui -node=server-c -retry-join server-a -retry-join server-b -datacenter=consuldemo01 -data-dir=/consul/data -config-dir=/consul/config -bootstrap-expect=3 -client=0.0.0.0
+    hostname: server-c
+    container_name: server-c
+    ports:
+      - "8503:8500"
+    environment:
+      - CONSUL_HTTP_TOKEN_FILE=/consul/tokens/agent-token
+    volumes:
+      - ./data/base/consul/agent-token:/consul/tokens/agent-token
+      - ./data/server/consul/config/:/consul/config
+      - ./data/server/consul/policies/:/consul/policies
+      - ./data/server-c/consul/data/:/consul/data
+    networks:
+      - net-custom
+  client-a:
+    # image: consul:1.8.6
+    # command: consul agent -ui -node=client-a -retry-join server-a -retry-join server-b -datacenter=consuldemo01 -data-dir=/consul/data -config-dir=/consul/config -client=0.0.0.0
+    image: isago.ch/gbo/ocelot-dc-lab/consul-app
+    hostname: client-a
+    container_name: client-a
+    ports:
+      - "8601:8500"
+    environment:
+      - CONSUL_HTTP_TOKEN_FILE=/consul/tokens/agent-token
+      - ConsulRegistrationOptions__RegistrationToken=80e7243a-cc29-dcf6-aba7-44b9f4bf28d8
+      - ConsulRegistrationOptions__RegisterInConsul=True
+      - ConsulRegistrationOptions__ServiceName=App1
+    volumes:
+      - ./data/base/consul/agent-token:/consul/tokens/agent-token
+      - ./data/client/consul/config/:/consul/config
+      - ./data/client-a/consul/data/:/consul/data
+    networks:
+      - net-custom
+  client-b:
+    # image: consul:1.8.6
+    # command: consul agent -ui -node=client-b -retry-join server-a -retry-join server-c -datacenter=consuldemo01 -data-dir=/consul/data -config-dir=/consul/config -client=0.0.0.0
+    image: isago.ch/gbo/ocelot-dc-lab/consul-app
+    hostname: client-b
+    container_name: client-b
+    ports:
+      - "8602:8500"
+    environment:
+      - CONSUL_HTTP_TOKEN_FILE=/consul/tokens/agent-token
+      - ConsulRegistrationOptions__RegistrationToken=80e7243a-cc29-dcf6-aba7-44b9f4bf28d8
+      - ConsulRegistrationOptions__RegisterInConsul=True
+      - ConsulRegistrationOptions__ServiceName=App1
+    volumes:
+      - ./data/base/consul/agent-token:/consul/tokens/agent-token
+      - ./data/client/consul/config/:/consul/config
+      - ./data/client-b/consul/data/:/consul/data
+    networks:
+      - net-custom
+  consul-cli:
+    image: consul:1.8.6
+    hostname: cli
+    container_name: consul_cli
+    environment:
+      - CONSUL_HTTP_TOKEN_FILE=/consul/tokens/global-token
+      - CONSUL_HTTP_ADDR=server-a:8500
+    volumes:
+      - ./data/base/consul/global-token:/consul/tokens/global-token
+      - ./data/base/consul/agent-token:/consul/tokens/agent-token
+      - ./data/client/consul/config/:/consul-data/config
+      - ./data/client-b/consul/data/:/consul-data/data
+      - ./data/consul-cli/:/consul-data/cli
+    networks:
+      - net-custom
+networks:
+  net-custom:
+    name: consul-lab-01

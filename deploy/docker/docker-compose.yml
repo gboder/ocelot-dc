@@ -91,7 +91,7 @@ services:
       - "8601:8500"
     environment:
       - CONSUL_HTTP_TOKEN_FILE=/consul/tokens/agent-token
-      - ConsulRegistrationOptions__RegistrationToken=80e7243a-cc29-dcf6-aba7-44b9f4bf28d8
+      - ConsulRegistrationOptions__RegistrationToken=44ab988e-c61c-a868-87ba-848b1f687afc
       - ConsulRegistrationOptions__RegisterInConsul=True
       - ConsulRegistrationOptions__ServiceName=App1
     volumes:
@@ -110,7 +110,7 @@ services:
       - "8602:8500"
     environment:
       - CONSUL_HTTP_TOKEN_FILE=/consul/tokens/agent-token
-      - ConsulRegistrationOptions__RegistrationToken=80e7243a-cc29-dcf6-aba7-44b9f4bf28d8
+      - ConsulRegistrationOptions__RegistrationToken=44ab988e-c61c-a868-87ba-848b1f687afc
       - ConsulRegistrationOptions__RegisterInConsul=True
       - ConsulRegistrationOptions__ServiceName=App1
     volumes:

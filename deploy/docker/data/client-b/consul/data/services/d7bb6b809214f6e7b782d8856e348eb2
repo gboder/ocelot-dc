@@ -1,0 +1,1 @@
+{"Token":"44ab988e-c61c-a868-87ba-848b1f687afc","Service":{"ID":"App1@client-b:80","Service":"App1","Tags":null,"Address":"client-b","Meta":null,"Port":80,"Weights":{"Passing":1,"Warning":1},"EnableTagOverride":false,"Proxy":{"MeshGateway":{},"Expose":{}},"Connect":{},"CreateIndex":0,"ModifyIndex":0},"Source":"remote"}

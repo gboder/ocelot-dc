@@ -46,6 +46,22 @@ Open the either <http://localhost:8800/weatherforecast> or <http://localhost:880
 ## Clean-up
 
 ```docker-compose -f .\deploy\docker\docker-compose.yml down```
-## Architecture
+# Architecture
 
 ![Architecture](doc/resources/architecture.png)
+
+# Operations
+
+You can see on the Consul UI that the application register itself into the datacenter and expose an `health` endpoint used by consul to monitor the service.
+
+The `health` endpoint can be configured to return either `http-200` or `http-500` to simulate a break-down.
+
+To do so, using a REST-Client, post the following request:
+
+```
+curl -X POST http://localhost:8801/health/set/true -v -d ""
+```
+
+The above request will make the cosul-app-a to fail.
+
+Further API requests, among others against the Consul API, can be found within the Postman collection under `test/postman` directory.

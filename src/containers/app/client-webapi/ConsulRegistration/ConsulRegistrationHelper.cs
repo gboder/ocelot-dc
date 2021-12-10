@@ -27,6 +27,12 @@ namespace Ais.Common.ServiceRegistration
             Configuration = new ConsulRegistrationOptions();
             configuration.GetSection(nameof(ConsulRegistrationOptions)).Bind(Configuration);
 
+            if (string.IsNullOrWhiteSpace(Configuration.RegistrationToken))
+            {
+                var logger = services.BuildServiceProvider().GetService<ILogger>();
+                logger.LogError($"{nameof(Configuration.RegistrationToken)} is not set.");
+            }
+
             services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
             {
                 consulConfig.Address = new Uri(Configuration.ConsulAddress);
@@ -45,11 +51,18 @@ namespace Ais.Common.ServiceRegistration
 
             Logger = app.ApplicationServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(ConsulRegistrationHelper));
 
-            IConsulClient consulClient = app.ApplicationServices.GetRequiredService<IConsulClient>();
-            IHostApplicationLifetime hostApplicationLifetime = app.ApplicationServices.GetRequiredService<IHostApplicationLifetime>();
+            try
+            {
 
-            Register(Configuration, consulClient, hostApplicationLifetime);
+                IConsulClient consulClient = app.ApplicationServices.GetRequiredService<IConsulClient>();
+                IHostApplicationLifetime hostApplicationLifetime = app.ApplicationServices.GetRequiredService<IHostApplicationLifetime>();
 
+                Register(Configuration, consulClient, hostApplicationLifetime);
+            }
+            catch (Exception e)
+            {
+                Logger.LogCritical(9, e, "Unable to register in Consul.");
+            }
             return app;
         }
 
@@ -70,8 +83,8 @@ namespace Ais.Common.ServiceRegistration
             RegisterAgentAsync(consulClient, serviceRegistration, hostApplicationLifetime).GetAwaiter().GetResult();
         }
 
-        private static async Task RegisterAgentAsync(IConsulClient consulClient, 
-            AgentServiceRegistration serviceRegistration, 
+        private static async Task RegisterAgentAsync(IConsulClient consulClient,
+            AgentServiceRegistration serviceRegistration,
             IHostApplicationLifetime hostApplicationLifetime)
         {
             Logger.LogInformation($"Registering Service ID={serviceRegistration.ID}, Name={serviceRegistration.Name} with URL {serviceRegistration.Address}:{serviceRegistration.Port}");

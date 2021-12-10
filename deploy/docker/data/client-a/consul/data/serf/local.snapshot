@@ -89,3 +89,87 @@ event-clock: 12
 clock: 46
 leave
 clock: 47
+alive: client-a 172.20.0.7:8301
+alive: client-b 172.20.0.6:8301
+alive: server-b 172.20.0.5:8301
+clock: 3
+alive: server-a 172.20.0.4:8301
+alive: server-c 172.20.0.3:8301
+clock: 4
+event-clock: 2
+event-clock: 3
+not-alive: client-b
+leave
+clock: 5
+alive: client-a 172.20.0.7:8301
+alive: client-b 172.20.0.6:8301
+clock: 8
+alive: server-a 172.20.0.3:8301
+alive: server-c 172.20.0.5:8301
+alive: server-b 172.20.0.4:8301
+clock: 9
+event-clock: 4
+event-clock: 5
+clock: 10
+leave
+clock: 11
+alive: client-a 172.20.0.7:8301
+alive: client-b 172.20.0.6:8301
+alive: server-b 172.20.0.4:8301
+alive: server-c 172.20.0.5:8301
+clock: 13
+alive: server-a 172.20.0.3:8301
+clock: 14
+event-clock: 6
+event-clock: 7
+leave
+clock: 15
+alive: client-a 172.20.0.7:8301
+alive: server-c 172.20.0.5:8301
+alive: server-a 172.20.0.3:8301
+alive: server-b 172.20.0.4:8301
+clock: 18
+alive: client-b 172.20.0.6:8301
+clock: 20
+leave
+clock: 21
+clock: 23
+alive: client-a 172.20.0.6:8301
+alive: server-c 172.20.0.5:8301
+alive: server-b 172.20.0.4:8301
+alive: server-a 172.20.0.3:8301
+clock: 25
+alive: client-b 172.20.0.7:8301
+clock: 27
+not-alive: client-b
+clock: 28
+leave
+clock: 29
+alive: client-a 172.20.0.6:8301
+alive: server-a 172.20.0.3:8301
+alive: client-b 172.20.0.7:8301
+alive: server-b 172.20.0.4:8301
+clock: 33
+alive: server-c 172.20.0.5:8301
+clock: 34
+clock: 35
+not-alive: client-b
+leave
+clock: 36
+alive: client-a 172.20.0.6:8301
+alive: server-c 172.20.0.5:8301
+alive: client-b 172.20.0.7:8301
+alive: server-a 172.20.0.3:8301
+alive: server-b 172.20.0.4:8301
+clock: 39
+clock: 40
+leave
+clock: 41
+alive: client-a 172.20.0.6:8301
+alive: server-c 172.20.0.5:8301
+clock: 42
+alive: server-b 172.20.0.4:8301
+alive: server-a 172.20.0.3:8301
+clock: 44
+alive: client-b 172.20.0.7:8301
+clock: 46

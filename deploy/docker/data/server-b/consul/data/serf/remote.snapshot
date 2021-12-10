@@ -31,3 +31,9 @@ clock: 14
 alive: server-c.consuldemo01 192.168.48.6:8302
 clock: 15
 clock: 16
+alive: server-b.consuldemo01 172.20.0.5:8302
+alive: server-c.consuldemo01 172.20.0.3:8302
+clock: 1
+alive: server-a.consuldemo01 172.20.0.4:8302
+clock: 3
+alive: server-b.consuldemo01 172.20.0.4:8302

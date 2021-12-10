@@ -14,7 +14,7 @@ This repo contains a demonstration Ocelot Datacenter setup using Docker Containe
   _Within a command prompt navigate to the deploy_
   dsf
   adf
-
+- Work in progress
 
 
 ## Architecture

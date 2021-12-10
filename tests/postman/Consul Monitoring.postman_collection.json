@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "ee3ca5c1-e262-4ded-80d8-c6d2a44a5649",
+		"name": "Consul Monitoring",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "agent/members.GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/agent/members",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"agent",
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "agent / checks [GET]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/agent/checks",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"agent",
+						"checks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "catalog / nodes [GET]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/catalog/nodes",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"catalog",
+						"nodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "catalog / services [GET]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/catalog/services",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"catalog",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "catalog / service / app1 [GET]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/catalog/service/app1",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"catalog",
+						"service",
+						"app1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "health / service [GET]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/health/service/app1?passing=true",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"health",
+						"service",
+						"app1"
+					],
+					"query": [
+						{
+							"key": "passing",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access-token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
